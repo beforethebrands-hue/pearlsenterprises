@@ -61,19 +61,66 @@ window.addEventListener("scroll", () => {
 
 const form = document.querySelector(".contact-form");
 
-form.addEventListener("submit", function(e){
+// ===========================
+// EMAILJS
+// ===========================
+
+emailjs.init({
+    publicKey: "7Wuwk0ttFztAKXegm"
+});
+
+const form = document.getElementById("contactForm");
+const submitBtn = document.getElementById("submitBtn");
+
+form.addEventListener("submit", function (e) {
 
     e.preventDefault();
 
-    alert(
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = "Sending...";
+
+    emailjs.sendForm(
+        "service_i2elu2d",
+        "template_uxepzzj",
+        this
+    )
+
+    .then(() => {
+
+        submitBtn.innerHTML = "✓ Message Sent";
+
+        alert(
 `Thank you for contacting PEARLS ENTERPRISES!
 
-We have received your inquiry.
+Your enquiry has been sent successfully.
 
-Our team will get back to you as soon as possible.`
-    );
+We will get back to you shortly.`
+        );
 
-    form.reset();
+        form.reset();
+
+    })
+
+    .catch((error) => {
+
+        console.error(error);
+
+        alert(
+`Message couldn't be sent.
+
+Please try again.`
+        );
+
+    })
+
+    .finally(() => {
+
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = "Send Message";
+
+    });
+
+});
 
 });
 

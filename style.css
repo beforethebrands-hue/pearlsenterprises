@@ -412,7 +412,10 @@ nav a:hover{
     cursor:pointer;
     transition:.3s;
 }
-
+.contact-form button:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+}
 .contact-form button:hover{
     background:#d8ab38;
 }
